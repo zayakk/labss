@@ -12,4 +12,6 @@ urlpatterns = [
     path('order_complete/', views.order_complete, name='order_complete'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('search/', views.search_result, name='search_result'),
+    path('store/', views.store, name='store'), 
+    path('store/<slug:category_slug>/', views.store, name='store_by_category'),
 ]

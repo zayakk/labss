@@ -18,7 +18,7 @@
 
 <header class="section-heading">
     <a href="{% url 'store' %}" class="btn btn-outline-primary float-right">See all</a>
-    <h3>Нийт {{ products.count }} бүтээгдэхүүн олдлоо</h3>. <hr>
+    <h3>Нийт {{ products.count }} бүтээгдэхүүн олдлоо</h3> <hr>
 </header>
 
 <div class="row">
@@ -26,7 +26,7 @@
     {% for product in products %}
         <div class="col-md-3 mb-4">
             <div class="card card-product-grid">
-                <a href="{% url 'product_detail' product.id %}" class="img-wrap">
+                <a href="{% url 'product_detail' product.id%}" class="img-wrap">
                     {% if product.images %}
                         <img src="{{ product.images.url }}" class="card-img-top" alt="{{ product.product_name }}">
                     {% else %}
@@ -34,7 +34,7 @@
                     {% endif %}
                 </a>
                 <figcaption class="info-wrap p-2">
-                    <a href="{% url 'product_detail' product.id %}" class="title">{{ product.product_name }}</a>
+                    <a href="{% url 'product_detail'  product.id%}" class="title">{{ product.product_name }}</a>
                     <div class="price mt-1">${{ product.price }}</div>
                 </figcaption>
             </div>

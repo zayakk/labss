@@ -1,5 +1,5 @@
 from django.db import connection
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from salbar.models import Product, Category
 
 def index(request):
@@ -25,19 +25,26 @@ def search_result(request):
     return render(request, 'search-result.html')
 def signin(request):
     return render(request, 'signin.html')
-def store(request):
-    return render(request, 'store.html')
 def home(request):
     products = Product.objects.all().filter(is_available =True)
     context = {
         'products': products
     }
     return render(request, 'home.html', context)
-def store(request):
-    products = Product.objects.all()              
-    products_count = products.count()             
-    return render(request, 'store/store.html', {
+def store(request, category_slug=None):
+    categories = None
+    products = None
+
+    if category_slug:
+        categories = get_object_or_404(Category, slug=category_slug)
+        products = Product.objects.filter(category=categories, is_available=True)
+    else:
+        products = Product.objects.filter(is_available=True)
+        
+    count = products.count()
+    context = {
         'products': products,
-        'products_count': products_count,
-    })
-    return render(request, 'store.html')
+        'count': count,
+    }
+    return render(request, 'store/store.html', context)
+
