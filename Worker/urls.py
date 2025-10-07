@@ -10,7 +10,7 @@ from salbar import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home, name='home'),
-    path('store', include('salbar.urls') ),
+    path('', include('salbar.urls') ),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

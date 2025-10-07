@@ -1,54 +1,51 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
+{% block title %}Django Ecommerce{% endblock %}
 {% block content %}
-
 <!-- ========================= SECTION MAIN ========================= -->
 <section class="section-intro padding-y-sm">
-<div class="container">
-    <div class="intro-banner-wrap">
-        <img src="{% static 'images/banners/1.jpg' %}" class="img-fluid rounded" alt="Banner">
-    </div>
-</div>
+	<div class="container">
+		
+		<div class="intro-banner-wrap">
+			<img src="{% static 'images/banners/1.jpg' %}" class="img-fluid rounded">
+		</div>
+		
+	</div> <!-- container //  -->
 </section>
 <!-- ========================= SECTION MAIN END// ========================= -->
 
-<!-- ========================= SECTION PRODUCTS ========================= -->
+<!-- ========================= SECTION  ========================= -->
 <section class="section-name padding-y-sm">
-<div class="container">
+	<div class="container">
+		
+		<header class="section-heading">
+			<a href="{% url 'store' %}" class="btn btn-outline-primary float-right">See all</a>
+			<p>сүүлд нэмэгдсэн {{ product_count }} бараа байна.</p>
 
-<header class="section-heading">
-    <a href="{% url 'store' %}" class="btn btn-outline-primary float-right">See all</a>
-    <h3>Нийт {{ products.count }} бүтээгдэхүүн олдлоо</h3> <hr>
-</header>
+		</header><!-- sect-heading -->
+		
+		
+		<div class="row">
+				{% for i in products %}
+				<div class="col-md-3">
+					<div class="card card-product-grid">
+						<!-- i[5] = image column (photos/products/..) -->
+						<a href="#" class="img-wrap"> 
+							<img src="/media/{{ i.5 }}"> 
+						</a>
+						<figcaption class="info-wrap">
+							<!-- i[1] = product_name, i[4] = price -->
+							<a href="#" class="title">{{ i.1 }}</a>
+							<div class="price mt-1">{{ i.4 }}₮</div>
+						</figcaption>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
 
-<div class="row">
-{% if products %}
-    {% for product in products %}
-        <div class="col-md-3 mb-4">
-            <div class="card card-product-grid">
-                <a href="{% url 'product_detail' product.id%}" class="img-wrap">
-                    {% if product.images %}
-                        <img src="{{ product.images.url }}" class="card-img-top" alt="{{ product.product_name }}">
-                    {% else %}
-                        <img src="{% static 'images/default-product.jpg' %}" class="card-img-top" alt="No Image">
-                    {% endif %}
-                </a>
-                <figcaption class="info-wrap p-2">
-                    <a href="{% url 'product_detail'  product.id%}" class="title">{{ product.product_name }}</a>
-                    <div class="price mt-1">${{ product.price }}</div>
-                </figcaption>
-            </div>
-        </div>
-    {% endfor %}
-{% else %}
-    <div class="col-12">
-        <p>Бүтээгдэхүүн олдсонгүй</p>
-    </div>
-{% endif %}
-</div> <!-- row -->
 
-</div><!-- container -->
+</div><!-- container // -->
 </section>
-<!-- ========================= SECTION PRODUCTS END// ========================= -->
+<!-- ========================= SECTION  END// ========================= -->
 
 {% endblock %}
