@@ -11,7 +11,7 @@ def home(request):
         SELECT * FROM tbl_products
         WHERE is_available=1
         ORDER BY id DESC
-        LIMIT 5
+        LIMIT 4
     '''
     )
     products = cur.fetchall()
@@ -39,13 +39,10 @@ def order_complete(request):
 def place_order(request):
     return render(request, 'place_order.html')
 def product_detail(request, category_slug, product_slug):
-    product = get_object_or_404(
-        Product,
-        category__slug=category_slug,
-        slug=product_slug,
-        is_available=True
-    )
-    return render(request, 'product-detail.html', {'product': product})
+    category = get_object_or_404(Category, slug=category_slug)
+    product = get_object_or_404(Product, category=category, slug=product_slug)
+    return render(request, 'product_detail.html', {'product': product})
+    
 def register(request):
     return render(request, 'register.html')
 def search_result(request):
